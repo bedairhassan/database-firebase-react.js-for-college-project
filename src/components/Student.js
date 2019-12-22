@@ -3,8 +3,6 @@ import firebase from 'firebase'
 
 export default class Student extends React.Component {
 
-
-    
     constructor(props) {
 
         super(props)
@@ -36,15 +34,23 @@ export default class Student extends React.Component {
             storageBucket: "databaseproject-f8b91.appspot.com",
             messagingSenderId: "157170321606",
             appId: "1:157170321606:web:f1e52cadc2e5ff5cf5afc7"
-          };
-        
-          this.app = firebase.initializeApp(firebaseConfig)
-        
-          this.database = this.app.database().ref().child('LED')
+        };
 
+        this.app = firebase.initializeApp(firebaseConfig)
+        this.ref = this.app.database().ref().child('student')
+        // this.ref.push({})
     }
 
-    
+    componentDidMount(){
+
+        // this.ref.on('value',function(incomingdata){
+
+        //     this.setState({data:[...incomingdata]})
+
+        // },function(err){
+        //     console.log(err)
+        // })
+    }
 
     delete(id) {
 
@@ -90,6 +96,21 @@ export default class Student extends React.Component {
                         </tbody>
 
                     </table>
+
+                    <button onClick={() => {
+                        this.ref.push({
+
+                            student_id: 0,
+                            credit_achieved: 1,
+                            supervisor_id: 2,
+                            contactinfo_id: 3,
+                            department_id: 4,
+                            gpa: 5
+                        }
+                        ).then(function(value){
+                            console.log(value)
+                        })
+                    }}>ref.push</button>
                 </div>
             </center>
         )
